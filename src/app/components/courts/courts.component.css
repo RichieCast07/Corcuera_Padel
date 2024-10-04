@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@100..800&display=swap');
+
+* {
+    font-family: 'Playpen Sans';
+}
+
+.formacion-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #ffffff;
+    margin-top: 10vh;
+}
+
+.formacion-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+h1 {
+    padding-top: 5vh;
+    font-size: 24px;
+    margin: 0;
+    color: #000;
+    z-index: 1;
+}
+
+.icons {
+    padding-top: 5vh;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.icon1, .icon2 {
+    width: 40px;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.icon1 {
+    left: -20vh;
+    transform: rotate(45deg) translateY(-50%);
+}
+
+.icon2 {
+    right: -20vh;
+    transform: rotate(-45deg) translateY(-50%);
+}
+
+.parejas-box {
+    display: flex;
+    gap: 60px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    width: 100%;
+    justify-content: center;
+    position: relative;
+}
+
+.left-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    margin-top: 20vh;
+}
+
+.pareja {
+    border: 2px solid;
+    border-radius: 25px;
+    padding: 10px 15px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    width: 200px;
+}
+
+.pareja-red {
+    border-color: #ff6159;
+    color: #ff6159;
+    margin-bottom: 5vh;
+}
+
+.pareja-teal {
+    border-color: #0fd9bf;
+    color: #0fd9bf;
+}
+
+.pareja-yellow {
+    border-color: #ffd700;
+    color: #ffd700;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 5vh;
+    left: 15vh;
+}
