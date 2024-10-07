@@ -111,7 +111,7 @@ input[type="text"] {
 .buttons {
     display: flex;
     gap: 10px;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .submit-button {
@@ -124,6 +124,7 @@ input[type="text"] {
     border-radius: 25px;
     cursor: pointer;
     transition: background-color 0.3s;
+    margin-bottom: 10px;
 }
 
 .submit-button:hover {
@@ -212,4 +213,20 @@ td.ocupada {
 
 .delete-button:hover {
     background-color: #ff3b3b;
+}
+
+.form-wrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.parejas-form {
+    flex: 1;
+    margin-right: 10vh;
+}
+
+.canchas-form {
+    flex: 1;
+    margin-left: 10vh;
 }

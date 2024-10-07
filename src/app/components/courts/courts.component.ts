@@ -11,12 +11,38 @@ export class CourtsComponent implements OnInit {
   semifinalistas: any[] = [];
   finalista: any = null;
   isModalOpen: boolean = false;
+  isRuletaOpen: boolean = false;
   scoreForm = { nombrePareja: '', puntaje: 0 };
   etapa = 'grupo';
+  emparejamientos: any[] = [];
 
   ngOnInit() {
     this.parejas = JSON.parse(localStorage.getItem('parejas') || '[]');
     this.seleccionarSemifinalistas();
+  }
+
+  iniciarRuleta() {
+    this.isRuletaOpen = true;
+    this.emparejamientos = this.generarEmparejamientosAleatorios();
+  }
+
+  closeRuleta() {
+    this.isRuletaOpen = false;
+  }
+
+  generarEmparejamientosAleatorios(): any[] {
+    const shuffled = this.shuffleArray([...this.parejas]);
+    const pairs = [];
+    for (let i = 0; i < shuffled.length; i += 2) {
+      if (shuffled[i + 1]) {
+        pairs.push([shuffled[i], shuffled[i + 1]]);
+      }
+    }
+    return pairs;
+  }
+
+  shuffleArray(array: any[]): any[] {
+    return array.sort(() => Math.random() - 0.5);
   }
 
   seleccionarSemifinalistas() {

@@ -9,7 +9,6 @@
         </div>
     </header>
 
-    <!-- Tabla de Parejas -->
     <div class="parejas-box">
         <h2>Parejas</h2>
         <table class="parejas-table">
@@ -28,7 +27,6 @@
         </table>
     </div>
 
-    <!-- Semifinalistas -->
     <div *ngIf="etapa === 'semifinal'" class="semifinalistas">
         <h2>Semifinalistas</h2>
         <ul>
@@ -36,18 +34,16 @@
         </ul>
     </div>
 
-    <!-- Finalista -->
     <div *ngIf="finalista" class="finalista">
         <h2>Finalista: {{ finalista.nombre }}</h2>
     </div>
 
-    <!-- Botones de Control -->
+    <button (click)="iniciarRuleta()" class="control-button">Iniciar Ruleta</button>
     <button (click)="cambiarEtapa('grupo')" class="control-button">Grupo</button>
     <button (click)="cambiarEtapa('semifinal')" class="control-button">Semifinal</button>
     <button (click)="openModal()" class="control-button">Añadir Puntaje</button>
 </div>
 
-<!-- Modal de Puntajes -->
 <div id="puntajeModal" class="modal" *ngIf="isModalOpen">
     <div class="modal-content">
         <span class="close-button" (click)="closeModal()">&times;</span>
@@ -69,6 +65,22 @@
                 </div>
                 <button type="submit" class="submit-button">Guardar Puntaje</button>
             </form>
+        </div>
+    </div>
+</div>
+
+<div id="ruletaModal" class="modal" *ngIf="isRuletaOpen">
+    <div class="modal-content">
+        <span class="close-button" (click)="closeRuleta()">&times;</span>
+        <header class="modal-header">
+            <h2>Emparejamiento Aleatorio</h2>
+        </header>
+        <div class="modal-body">
+            <ul>
+                <li *ngFor="let emparejamiento of emparejamientos">
+                    {{ emparejamiento[0].nombre }} vs {{ emparejamiento[1].nombre }}
+                </li>
+            </ul>
         </div>
     </div>
 </div>

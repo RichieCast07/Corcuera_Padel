@@ -1,72 +1,112 @@
 <app-navbarm></app-navbarm>
 <div class="parejas-container">
     <header class="parejas-header">
-        <h1>Gestión de Parejas</h1>
+        <h1>Gestion de Parejas y Canchas</h1>
         <div class="icons">
             <img src="assets/images/Raqueta_roja.png" alt="Icon 1" class="icon1">
             <img src="assets/images/Raqueta_celesta.png" alt="Icon 2" class="icon2">
         </div>
     </header>
 
-    <form class="parejas-form" (ngSubmit)="addCouple()">
-        <div class="form-row">
-            <div class="form-column">
-                <div class="form-group">
-                    <label for="nombre-pareja">Nombre de Pareja</label>
-                    <input type="text" id="nombre-pareja" [(ngModel)]="newCouple.nombre" name="nombrePareja"
-                        placeholder="Nombre de pareja" required>
-                </div>
-                <div class="form-group">
-                    <label for="padelista1">Padelista 1</label>
-                    <input type="text" id="padelista1" [(ngModel)]="newCouple.padelista1" name="padelista1"
-                        placeholder="Ingrese su Nombre" required>
-                </div>
-                <div class="form-group">
-                    <label for="padelista2">Padelista 2</label>
-                    <input type="text" id="padelista2" [(ngModel)]="newCouple.padelista2" name="padelista2"
-                        placeholder="Ingrese su Nombre" required>
-                </div>
-                <div class="form-group">
-                    <label for="campo-juego">Nombre de Cancha</label>
-                    <input type="text" id="campo-juego" [(ngModel)]="newCouple.cancha" name="cancha"
-                        placeholder="Ingrese el Nombre de la cancha" required>
-                </div>
+    <div class="form-wrapper">
+        <form class="parejas-form" (ngSubmit)="addCouple()">
+            <h3>Añadir Pareja</h3>
+            <div class="form-group">
+                <label for="nombre-pareja">Nombre de Pareja</label>
+                <input type="text" id="nombre-pareja" [(ngModel)]="newCouple.nombre" name="nombrePareja"
+                    placeholder="Nombre de pareja" required>
             </div>
-        </div>
-        <div class="buttons">
-            <button type="submit" class="submit-button">{{ editIndex === null ? 'Añadir Pareja' : 'Actualizar Pareja'
-                }}</button>
-            <button type="button" class="reset-button" (click)="resetForm()">Limpiar</button>
-        </div>
-    </form>
+            <div class="form-group">
+                <label for="padelista1">Padelista 1</label>
+                <input type="text" id="padelista1" [(ngModel)]="newCouple.padelista1" name="padelista1"
+                    placeholder="Ingrese su Nombre" required>
+            </div>
+            <div class="form-group">
+                <label for="padelista2">Padelista 2</label>
+                <input type="text" id="padelista2" [(ngModel)]="newCouple.padelista2" name="padelista2"
+                    placeholder="Ingrese su Nombre" required>
+            </div>
+            <div class="form-group">
+                <label for="campo-juego">Nombre de Cancha</label>
+                <input type="text" id="campo-juego" [(ngModel)]="newCouple.cancha" name="cancha"
+                    placeholder="Ingrese el Nombre de la cancha" required>
+            </div>
+            <button type="submit" class="submit-button">{{ editIndex === null ? 'Añadir Pareja' : 'Actualizar Pareja' }}</button>
+            <button type="button" class="submit-button" (click)="resetForm()">Limpiar</button>
+        </form>
 
-    <!-- Tabla para mostrar las parejas existentes -->
-    <div class="parejas-table">
-        <table>
-            <thead>
-                <tr>
-                    <th>Nombre de Pareja</th>
-                    <th>Padelista 1</th>
-                    <th>Padelista 2</th>
-                    <th>Nombre de Cancha</th>
-                    <th>Disponibilidad</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let pareja of parejas; let i = index"
-                    [ngClass]="{'ocupada': getDisponibilidad(pareja.cancha) === 'Ocupada'}">
-                    <td>{{ pareja.nombre }}</td>
-                    <td>{{ pareja.padelista1 }}</td>
-                    <td>{{ pareja.padelista2 }}</td>
-                    <td>{{ pareja.cancha }}</td>
-                    <td>{{ getDisponibilidad(pareja.cancha) }}</td>
-                    <td class="action-buttons">
-                        <button (click)="editCouple(i)" class="edit-button">Editar</button>
-                        <button (click)="deleteCouple(i)" class="delete-button">Eliminar</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <form class="canchas-form" (ngSubmit)="addCancha()">
+            <h3>Añadir Cancha</h3>
+            <div class="form-group">
+                <label for="nombre-cancha">Nombre de Cancha</label>
+                <input type="text" id="nombre-cancha" [(ngModel)]="newCancha.nombre" name="nombreCancha"
+                    placeholder="Nombre de la cancha" required>
+            </div>
+            <div class="form-group">
+                <label for="localidad">Localidad</label>
+                <input type="text" id="localidad" [(ngModel)]="newCancha.localidad" name="localidad"
+                    placeholder="Localidad de la cancha" required>
+            </div>
+            <div class="form-group">
+                <label for="tamano-cancha">Tamaño de la Cancha</label>
+                <input type="text" id="tamano-cancha" [(ngModel)]="newCancha.tamano" name="tamanoCancha"
+                    placeholder="Tamaño de la cancha" required>
+            </div>
+            <button type="submit" class="submit-button">Añadir Cancha</button>
+        </form>
+    </div>
+
+    <div class="tables-container">
+        <div class="parejas-box">
+            <h3>Parejas</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre de Pareja</th>
+                        <th>Padelista 1</th>
+                        <th>Padelista 2</th>
+                        <th>Cancha</th>
+                        <th>Disponibilidad</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let pareja of parejas; let i = index"
+                        [ngClass]="{'ocupada': getDisponibilidad(pareja.cancha) === 'Ocupada'}">
+                        <td>{{ pareja.nombre }}</td>
+                        <td>{{ pareja.padelista1 }}</td>
+                        <td>{{ pareja.padelista2 }}</td>
+                        <td>{{ pareja.cancha }}</td>
+                        <td>{{ getDisponibilidad(pareja.cancha) }}</td>
+                        <td>
+                            <button (click)="editCouple(i)" class="submit-button">Editar</button>
+                            <button (click)="deleteCouple(i)" class="submit-button delete">Eliminar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="canchas-box">
+            <h3>Canchas</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre de Cancha</th>
+                        <th>Localidad</th>
+                        <th>Tamaño</th>
+                        <th>Disponibilidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cancha of canchas">
+                        <td>{{ cancha.nombre }}</td>
+                        <td>{{ cancha.localidad }}</td>
+                        <td>{{ cancha.tamano }}</td>
+                        <td>{{ cancha.disponibilidad }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

@@ -10,7 +10,6 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { CouplesComponent } from './components/couples/couples.component';
 import { NavbarmComponent } from './components/navbarm/navbarm.component';
 import { CourtsComponent } from './components/courts/courts.component';
-import { ModalCourtsComponent } from './components/modal-courts/modal-courts.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +20,6 @@ import { ModalCourtsComponent } from './components/modal-courts/modal-courts.com
     CouplesComponent,
     NavbarmComponent,
     CourtsComponent,
-    ModalCourtsComponent,
   ],
   imports: [
     BrowserModule,
