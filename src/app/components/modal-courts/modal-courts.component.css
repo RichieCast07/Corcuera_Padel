@@ -5,7 +5,7 @@
 }
 
 .modal {
-    display: none;
+    display: flex;
     position: fixed;
     z-index: 1000;
     left: 0;
@@ -20,12 +20,11 @@
 
 .modal-content {
     background-color: #fff;
-    margin: 10% auto;
     padding: 20px;
-    border: 1px solid #888;
+    border: 2px solid #ff6159;
     width: 60%;
     max-width: 600px;
-    border-radius: 10px;
+    border-radius: 20px;
     box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
 }
 
@@ -59,7 +58,7 @@
 .puntajes-container {
     display: flex;
     justify-content: space-between;
-    gap: 20px;
+    gap: 40px;
     width: 100%;
 }
 
@@ -86,7 +85,7 @@ label {
 input[type="text"] {
     width: 200px;
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 10px;
     border: 2px solid #ff6159;
     text-align: center;
 }

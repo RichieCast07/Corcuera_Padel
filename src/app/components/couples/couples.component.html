@@ -7,77 +7,119 @@
             <img src="assets/images/Raqueta_celesta.png" alt="Icon 2" class="icon2">
         </div>
     </header>
-    <form class="parejas-form">
+    <form class="parejas-form" (ngSubmit)="addCouple()">
         <div class="form-row">
+            <!-- Primer grupo -->
             <div class="form-column">
                 <div class="form-group">
-                    <label for="nombre-pareja">Nombre de Pareja</label>
-                    <input type="text" id="nombre-pareja" placeholder="Nombre de pareja">
+                    <label for="nombre-pareja1">Nombre de Pareja 1</label>
+                    <input type="text" id="nombre-pareja1" [(ngModel)]="nombrePareja1" name="nombrePareja1"
+                        placeholder="Nombre de pareja" required>
                 </div>
                 <div class="form-group">
-                    <label for="padelista1">Padelista 1</label>
-                    <input type="text" id="padelista1" placeholder="Ingrese su Nombre">
+                    <label for="padelista1-1">Padelista 1</label>
+                    <input type="text" id="padelista1-1" [(ngModel)]="padelista1_1" name="padelista1_1"
+                        placeholder="Ingrese su Nombre" required>
                 </div>
                 <div class="form-group">
-                    <label for="padelista2">Padelista 2</label>
-                    <input type="text" id="padelista2" placeholder="Ingrese su Nombre">
-                </div>
-                <div class="form-group">
-                    <label for="campo-juego">Campo de Juego</label>
-                    <input type="text" id="campo-juego" placeholder="Ingrese el Nombre">
+                    <label for="padelista2-1">Padelista 2</label>
+                    <input type="text" id="padelista2-1" [(ngModel)]="padelista2_1" name="padelista2_1"
+                        placeholder="Ingrese su Nombre" required>
                 </div>
             </div>
+
+            <!-- Segundo grupo -->
             <div class="form-column">
                 <div class="form-group">
-                    <label for="nombre-pareja2">Nombre de Pareja</label>
-                    <input type="text" id="nombre-pareja2" placeholder="Nombre de pareja">
+                    <label for="nombre-pareja2">Nombre de Pareja 2</label>
+                    <input type="text" id="nombre-pareja2" [(ngModel)]="nombrePareja2" name="nombrePareja2"
+                        placeholder="Nombre de pareja" required>
                 </div>
                 <div class="form-group">
                     <label for="padelista1-2">Padelista 1</label>
-                    <input type="text" id="padelista1-2" placeholder="Ingrese su Nombre">
+                    <input type="text" id="padelista1-2" [(ngModel)]="padelista1_2" name="padelista1_2"
+                        placeholder="Ingrese su Nombre" required>
                 </div>
                 <div class="form-group">
                     <label for="padelista2-2">Padelista 2</label>
-                    <input type="text" id="padelista2-2" placeholder="Ingrese su Nombre">
-                </div>
-                <div class="form-group">
-                    <label for="campo-juego2">Campo de Juego</label>
-                    <input type="text" id="campo-juego2" placeholder="Ingrese el Nombre">
+                    <input type="text" id="padelista2-2" [(ngModel)]="padelista2_2" name="padelista2_2"
+                        placeholder="Ingrese su Nombre" required>
                 </div>
             </div>
+
+            <!-- Tercer grupo -->
             <div class="form-column">
                 <div class="form-group">
-                    <label for="nombre-pareja2">Nombre de Pareja</label>
-                    <input type="text" id="nombre-pareja2" placeholder="Nombre de pareja">
+                    <label for="nombre-pareja3">Nombre de Pareja 3</label>
+                    <input type="text" id="nombre-pareja3" [(ngModel)]="nombrePareja3" name="nombrePareja3"
+                        placeholder="Nombre de pareja" required>
                 </div>
                 <div class="form-group">
-                    <label for="padelista1-2">Padelista 1</label>
-                    <input type="text" id="padelista1-2" placeholder="Ingrese su Nombre">
+                    <label for="padelista1-3">Padelista 1</label>
+                    <input type="text" id="padelista1-3" [(ngModel)]="padelista1_3" name="padelista1_3"
+                        placeholder="Ingrese su Nombre" required>
                 </div>
                 <div class="form-group">
-                    <label for="padelista2-2">Padelista 2</label>
-                    <input type="text" id="padelista2-2" placeholder="Ingrese su Nombre">
+                    <label for="padelista2-3">Padelista 2</label>
+                    <input type="text" id="padelista2-3" [(ngModel)]="padelista2_3" name="padelista2_3"
+                        placeholder="Ingrese su Nombre" required>
+                </div>
+            </div>
+
+            <!-- Cuarto grupo -->
+            <div class="form-column">
+                <div class="form-group">
+                    <label for="nombre-pareja4">Nombre de Pareja 4</label>
+                    <input type="text" id="nombre-pareja4" [(ngModel)]="nombrePareja4" name="nombrePareja4"
+                        placeholder="Nombre de pareja" required>
                 </div>
                 <div class="form-group">
-                    <label for="campo-juego2">Campo de Juego</label>
-                    <input type="text" id="campo-juego2" placeholder="Ingrese el Nombre">
-                </div>
-            </div><div class="form-column">
-                <div class="form-group">
-                    <label for="nombre-pareja2">Nombre de Pareja</label>
-                    <input type="text" id="nombre-pareja2" placeholder="Nombre de pareja">
+                    <label for="padelista1-4">Padelista 1</label>
+                    <input type="text" id="padelista1-4" [(ngModel)]="padelista1_4" name="padelista1_4"
+                        placeholder="Ingrese su Nombre" required>
                 </div>
                 <div class="form-group">
-                    <label for="padelista1-2">Padelista 1</label>
-                    <input type="text" id="padelista1-2" placeholder="Ingrese su Nombre">
+                    <label for="padelista2-4">Padelista 2</label>
+                    <input type="text" id="padelista2-4" [(ngModel)]="padelista2_4" name="padelista2_4"
+                        placeholder="Ingrese su Nombre" required>
+                </div>
+            </div>
+
+            <!-- Quinto grupo -->
+            <div class="form-column">
+                <div class="form-group">
+                    <label for="nombre-pareja5">Nombre de Pareja 5</label>
+                    <input type="text" id="nombre-pareja5" [(ngModel)]="nombrePareja5" name="nombrePareja5"
+                        placeholder="Nombre de pareja" required>
                 </div>
                 <div class="form-group">
-                    <label for="padelista2-2">Padelista 2</label>
-                    <input type="text" id="padelista2-2" placeholder="Ingrese su Nombre">
+                    <label for="padelista1-5">Padelista 1</label>
+                    <input type="text" id="padelista1-5" [(ngModel)]="padelista1_5" name="padelista1_5"
+                        placeholder="Ingrese su Nombre" required>
                 </div>
                 <div class="form-group">
-                    <label for="campo-juego2">Campo de Juego</label>
-                    <input type="text" id="campo-juego2" placeholder="Ingrese el Nombre">
+                    <label for="padelista2-5">Padelista 2</label>
+                    <input type="text" id="padelista2-5" [(ngModel)]="padelista2_5" name="padelista2_5"
+                        placeholder="Ingrese su Nombre" required>
+                </div>
+            </div>
+
+            <!-- Sexto grupo de parejas -->
+            <div class="form-column">
+                <div class="form-group">
+                    <label for="nombre-pareja6">Nombre de Pareja 6</label>
+                    <input type="text" id="nombre-pareja6" [(ngModel)]="nombrePareja6" name="nombrePareja6"
+                        placeholder="Nombre de pareja" required>
+                </div>
+                <div class="form-group">
+                    <label for="padelista1-6">Padelista 1</label>
+                    <input type="text" id="padelista1-6" [(ngModel)]="padelista1_6" name="padelista1_6"
+                        placeholder="Ingrese su Nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="padelista2-6">Padelista 2</label>
+                    <input type="text" id="padelista2-6" [(ngModel)]="padelista2_6" name="padelista2_6"
+                        placeholder="Ingrese su Nombre" required>
                 </div>
             </div>
         </div>

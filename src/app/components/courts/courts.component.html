@@ -1,4 +1,5 @@
 <app-navbarm></app-navbarm>
+
 <div class="formacion-container">
     <header class="formacion-header">
         <h1>Formación de Juegos</h1>
@@ -9,17 +10,61 @@
     </header>
     <div class="parejas-box">
         <div class="left-column">
-            <div class="pareja pareja-red">Nombre de Pareja</div>
-            <div class="pareja pareja-teal">Nombre de Pareja</div>
-            <div class="pareja pareja-red">Nombre de Pareja</div>
-            <div class="pareja pareja-teal">Nombre de Pareja</div>
-            <div class="pareja pareja-red">Nombre de Pareja</div>
-            <div class="pareja pareja-teal">Nombre de Pareja</div>
+            <div *ngFor="let pareja of parejas; let i = index" class="pareja-container">
+                <div [ngClass]="{'pareja-red': i % 2 === 0, 'pareja-teal': i % 2 !== 0}">
+                    {{ pareja.nombre }}
+                </div>
+            </div>
         </div>
         <div class="right-column">
-            <div class="pareja pareja-red">Nombre de Pareja</div>
-            <div class="pareja pareja-yellow">Nombre de Pareja</div>
-            <div class="pareja pareja-teal">Nombre de Pareja</div>
+            <div class="pareja pareja-red">{{ topParejas[0]?.nombre }}</div>
+            <div class="pareja pareja-yellow">{{ topParejas[1]?.nombre }}</div>
+            <div class="pareja pareja-teal">Ganador</div>
+        </div>
+    </div>
+    <button (click)="eliminarJuego()" class="submit-button">Eliminar Juego</button>
+    <button (click)="openModal()" class="submit-button">Puntaje</button>
+</div>
+
+<!-- Modal de Puntajes -->
+<div id="puntajeModal" class="modal" *ngIf="isModalOpen">
+    <div class="modal-content">
+        <span class="close-button" (click)="closeModal()">&times;</span>
+        <header class="modal-header">
+            <h2>Puntajes</h2>
+        </header>
+        <div class="modal-body">
+            <div class="puntajes-container">
+                <div class="puntaje-column">
+                    <div class="puntaje-group">
+                        <label for="puntaje1">Nombre de Pareja</label>
+                        <input type="text" id="puntaje1" placeholder="Ingrese un puntaje">
+                    </div>
+                    <div class="puntaje-group">
+                        <label for="puntaje2">Nombre de Pareja</label>
+                        <input type="text" id="puntaje2" placeholder="Ingrese un puntaje">
+                    </div>
+                    <div class="puntaje-group">
+                        <label for="puntaje3">Nombre de Pareja</label>
+                        <input type="text" id="puntaje3" placeholder="Ingrese un puntaje">
+                    </div>
+                </div>
+                <div class="puntaje-column">
+                    <div class="puntaje-group">
+                        <label for="puntaje4">Nombre de Pareja</label>
+                        <input type="text" id="puntaje4" placeholder="Ingrese un puntaje">
+                    </div>
+                    <div class="puntaje-group">
+                        <label for="puntaje5">Nombre de Pareja</label>
+                        <input type="text" id="puntaje5" placeholder="Ingrese un puntaje">
+                    </div>
+                    <div class="puntaje-group">
+                        <label for="puntaje6">Nombre de Pareja</label>
+                        <input type="text" id="puntaje6" placeholder="Ingrese un puntaje">
+                    </div>
+                </div>
+            </div>
+            <button class="submit-button">Cargar</button>
         </div>
     </div>
 </div>
