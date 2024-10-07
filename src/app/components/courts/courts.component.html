@@ -8,22 +8,43 @@
             <img src="assets/images/Raqueta_celesta.png" alt="Icon 2" class="icon2">
         </div>
     </header>
+
+    <!-- Tabla de Parejas -->
     <div class="parejas-box">
-        <div class="left-column">
-            <div *ngFor="let pareja of parejas; let i = index" class="pareja-container">
-                <div [ngClass]="{'pareja-red': i % 2 === 0, 'pareja-teal': i % 2 !== 0}">
-                    {{ pareja.nombre }}
-                </div>
-            </div>
-        </div>
-        <div class="right-column">
-            <div class="pareja pareja-red">{{ topParejas[0]?.nombre }}</div>
-            <div class="pareja pareja-yellow">{{ topParejas[1]?.nombre }}</div>
-            <div class="pareja pareja-teal">Ganador</div>
-        </div>
+        <h2>Parejas</h2>
+        <table class="parejas-table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Puntaje</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let pareja of parejas">
+                    <td>{{ pareja.nombre }}</td>
+                    <td>{{ pareja.puntaje }}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-    <button (click)="eliminarJuego()" class="submit-button">Eliminar Juego</button>
-    <button (click)="openModal()" class="submit-button">Puntaje</button>
+
+    <!-- Semifinalistas -->
+    <div *ngIf="etapa === 'semifinal'" class="semifinalistas">
+        <h2>Semifinalistas</h2>
+        <ul>
+            <li *ngFor="let pareja of semifinalistas">{{ pareja.nombre }} - Puntos: {{ pareja.puntaje }}</li>
+        </ul>
+    </div>
+
+    <!-- Finalista -->
+    <div *ngIf="finalista" class="finalista">
+        <h2>Finalista: {{ finalista.nombre }}</h2>
+    </div>
+
+    <!-- Botones de Control -->
+    <button (click)="cambiarEtapa('grupo')" class="control-button">Grupo</button>
+    <button (click)="cambiarEtapa('semifinal')" class="control-button">Semifinal</button>
+    <button (click)="openModal()" class="control-button">Añadir Puntaje</button>
 </div>
 
 <!-- Modal de Puntajes -->
@@ -31,40 +52,23 @@
     <div class="modal-content">
         <span class="close-button" (click)="closeModal()">&times;</span>
         <header class="modal-header">
-            <h2>Puntajes</h2>
+            <h2>Añadir Puntaje</h2>
         </header>
         <div class="modal-body">
-            <div class="puntajes-container">
-                <div class="puntaje-column">
-                    <div class="puntaje-group">
-                        <label for="puntaje1">Nombre de Pareja</label>
-                        <input type="text" id="puntaje1" placeholder="Ingrese un puntaje">
-                    </div>
-                    <div class="puntaje-group">
-                        <label for="puntaje2">Nombre de Pareja</label>
-                        <input type="text" id="puntaje2" placeholder="Ingrese un puntaje">
-                    </div>
-                    <div class="puntaje-group">
-                        <label for="puntaje3">Nombre de Pareja</label>
-                        <input type="text" id="puntaje3" placeholder="Ingrese un puntaje">
-                    </div>
+            <form (ngSubmit)="addScore()">
+                <div class="puntaje-group">
+                    <label for="coupleName">Nombre de la Pareja</label>
+                    <select [(ngModel)]="scoreForm.nombrePareja" name="nombrePareja" required>
+                        <option *ngFor="let pareja of parejas" [value]="pareja.nombre">{{ pareja.nombre }}</option>
+                    </select>
                 </div>
-                <div class="puntaje-column">
-                    <div class="puntaje-group">
-                        <label for="puntaje4">Nombre de Pareja</label>
-                        <input type="text" id="puntaje4" placeholder="Ingrese un puntaje">
-                    </div>
-                    <div class="puntaje-group">
-                        <label for="puntaje5">Nombre de Pareja</label>
-                        <input type="text" id="puntaje5" placeholder="Ingrese un puntaje">
-                    </div>
-                    <div class="puntaje-group">
-                        <label for="puntaje6">Nombre de Pareja</label>
-                        <input type="text" id="puntaje6" placeholder="Ingrese un puntaje">
-                    </div>
+                <div class="puntaje-group">
+                    <label for="score">Puntaje</label>
+                    <input type="number" [(ngModel)]="scoreForm.puntaje" name="puntaje" placeholder="Ingrese el puntaje"
+                        required>
                 </div>
-            </div>
-            <button class="submit-button">Cargar</button>
+                <button type="submit" class="submit-button">Guardar Puntaje</button>
+            </form>
         </div>
     </div>
 </div>

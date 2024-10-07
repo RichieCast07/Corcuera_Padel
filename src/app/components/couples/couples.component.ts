@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -7,115 +6,95 @@ import Swal from 'sweetalert2';
   templateUrl: './couples.component.html',
   styleUrls: ['./couples.component.css']
 })
-export class CouplesComponent {
-  // Propiedades para cada pareja
-  nombrePareja1: string = '';
-  padelista1_1: string = '';
-  padelista2_1: string = '';
-  campoJuego1: string = '';
-
-  nombrePareja2: string = '';
-  padelista1_2: string = '';
-  padelista2_2: string = '';
-  campoJuego2: string = '';
-
-  nombrePareja3: string = '';
-  padelista1_3: string = '';
-  padelista2_3: string = '';
-  campoJuego3: string = '';
-
-  nombrePareja4: string = '';
-  padelista1_4: string = '';
-  padelista2_4: string = '';
-  campoJuego4: string = '';
-
-  nombrePareja5: string = '';
-  padelista1_5: string = '';
-  padelista2_5: string = '';
-  campoJuego5: string = '';
-
-  nombrePareja6: string = '';
-  padelista1_6: string = '';
-  padelista2_6: string = '';
-  campoJuego6: string = '';
-
+export class CouplesComponent implements OnInit {
   parejas: any[] = [];
-
-  constructor(private router: Router) {}
-
-  addCouple() {
-    console.log('Agregado Correctamente');
-    // Validar que todos los campos estén completos
-    if (!this.nombrePareja1 || !this.padelista1_1 || !this.padelista2_1 ||
-        !this.nombrePareja2 || !this.padelista1_2 || !this.padelista2_2 ||
-        !this.nombrePareja3 || !this.padelista1_3 || !this.padelista2_3 ||
-        !this.nombrePareja4 || !this.padelista1_4 || !this.padelista2_4 ||
-        !this.nombrePareja5 || !this.padelista1_5 || !this.padelista2_5 ||
-        !this.nombrePareja6 || !this.padelista1_6 || !this.padelista2_6) {
-      Swal.fire('Por favor complete todos los campos', '', 'error');
-      return;
-    }
-
-    // Crear las 6 parejas
-    const nuevaPareja1 = {
-      nombre: this.nombrePareja1,
-      padelista1: this.padelista1_1,
-      padelista2: this.padelista2_1,
-      campoJuego: this.campoJuego1,
-      puntaje: 0
-    };
-
-    const nuevaPareja2 = {
-      nombre: this.nombrePareja2,
-      padelista1: this.padelista1_2,
-      padelista2: this.padelista2_2,
-      campoJuego: this.campoJuego2,
-      puntaje: 0
-    };
-
-    const nuevaPareja3 = {
-      nombre: this.nombrePareja3,
-      padelista1: this.padelista1_3,
-      padelista2: this.padelista2_3,
-      campoJuego: this.campoJuego3,
-      puntaje: 0
-    };
-
-    const nuevaPareja4 = {
-      nombre: this.nombrePareja4,
-      padelista1: this.padelista1_4,
-      padelista2: this.padelista2_4,
-      campoJuego: this.campoJuego4,
-      puntaje: 0
-    };
-
-    const nuevaPareja5 = {
-      nombre: this.nombrePareja5,
-      padelista1: this.padelista1_5,
-      padelista2: this.padelista2_5,
-      campoJuego: this.campoJuego5,
-      puntaje: 0
-    };
-
-    const nuevaPareja6 = {
-      nombre: this.nombrePareja6,
-      padelista1: this.padelista1_6,
-      padelista2: this.padelista2_6,
-      campoJuego: this.campoJuego6,
-      puntaje: 0
-    };
-
-    // Guarda las parejas en el LocalStorage
-    this.parejas.push(nuevaPareja1, nuevaPareja2, nuevaPareja3, nuevaPareja4, nuevaPareja5, nuevaPareja6);
-    localStorage.setItem('parejas', JSON.stringify(this.parejas));
-
-    Swal.fire('Emparejamiento aleatorio', '', 'success').then(() => {
-      this.router.navigate(['/courts']);
-    });
-  }
+  newCouple = { nombre: '', padelista1: '', padelista2: '', cancha: '' };
+  canchas: any[] = [];
+  editIndex: number | null = null;
 
   ngOnInit() {
-    // Cargar parejas existentes
+    this.loadCouples();
+    this.loadCanchas();
+  }
+
+  loadCouples() {
     this.parejas = JSON.parse(localStorage.getItem('parejas') || '[]');
+  }
+
+  loadCanchas() {
+    this.canchas = JSON.parse(localStorage.getItem('canchas') || '[]');
+  }
+
+  addCouple() {
+    if (this.editIndex === null) {
+      const nombreExistente = this.parejas.some(pareja => pareja.nombre.toLowerCase() === this.newCouple.nombre.toLowerCase());
+      if (nombreExistente) {
+        Swal.fire('Este nombre de pareja ya existe. Por favor, elija un nombre diferente.', '', 'error');
+        return;
+      }
+    }
+
+    if (this.editIndex !== null) {
+      const oldCancha = this.parejas[this.editIndex].cancha;
+      this.parejas[this.editIndex] = { ...this.newCouple };
+
+      if (oldCancha !== this.newCouple.cancha) {
+        this.setCanchaStatus(this.newCouple.cancha, 'Ocupada');
+
+        const isCanchaUsed = this.parejas.some(pareja => pareja.cancha === oldCancha);
+        if (!isCanchaUsed) {
+          this.setCanchaStatus(oldCancha, 'Libre');
+        }
+      }
+
+      this.editIndex = null;
+    } else {
+      this.parejas.push({ ...this.newCouple });
+      this.setCanchaStatus(this.newCouple.cancha, 'Ocupada');
+    }
+
+    localStorage.setItem('parejas', JSON.stringify(this.parejas));
+    this.resetForm();
+    Swal.fire('Pareja agregada correctamente', '', 'success');
+  }
+
+  setCanchaStatus(nombreCancha: string, status: string) {
+    const canchaIndex = this.canchas.findIndex(cancha => cancha.nombre === nombreCancha);
+    if (canchaIndex !== -1) {
+      this.canchas[canchaIndex].disponibilidad = status;
+    } else if (status === 'Ocupada') {
+      this.canchas.push({ nombre: nombreCancha, disponibilidad: status });
+    }
+    localStorage.setItem('canchas', JSON.stringify(this.canchas));
+  }
+
+  editCouple(index: number) {
+    this.newCouple = { ...this.parejas[index] };
+    this.editIndex = index;
+  }
+
+  deleteCouple(index: number) {
+    if (confirm('¿Estás seguro de que deseas eliminar esta pareja?')) {
+      const canchaNombre = this.parejas[index].cancha;
+      this.parejas.splice(index, 1);
+      localStorage.setItem('parejas', JSON.stringify(this.parejas));
+
+      const isCanchaUsed = this.parejas.some(pareja => pareja.cancha === canchaNombre);
+      if (!isCanchaUsed) {
+        this.setCanchaStatus(canchaNombre, 'Libre');
+      }
+      Swal.fire('Pareja eliminada correctamente', '', 'success');
+    }
+  }
+
+  // restablece el formulario
+  resetForm() {
+    this.newCouple = { nombre: '', padelista1: '', padelista2: '', cancha: '' };
+    this.editIndex = null;
+  }
+
+  getDisponibilidad(nombreCancha: string): string {
+    const cancha = this.canchas.find(c => c.nombre === nombreCancha);
+    return cancha ? cancha.disponibilidad : 'Libre';
   }
 }

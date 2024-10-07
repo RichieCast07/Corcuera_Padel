@@ -11,7 +11,6 @@ import { CouplesComponent } from './components/couples/couples.component';
 import { NavbarmComponent } from './components/navbarm/navbarm.component';
 import { CourtsComponent } from './components/courts/courts.component';
 import { ModalCourtsComponent } from './components/modal-courts/modal-courts.component';
-import { CourtsMangeComponent } from './components/courts-mange/courts-mange.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +22,6 @@ import { CourtsMangeComponent } from './components/courts-mange/courts-mange.com
     NavbarmComponent,
     CourtsComponent,
     ModalCourtsComponent,
-    CourtsMangeComponent
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-courts',
@@ -7,30 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CourtsComponent implements OnInit {
   parejas: any[] = [];
-  topParejas: any[] = [];
+  semifinalistas: any[] = [];
+  finalista: any = null;
   isModalOpen: boolean = false;
+  scoreForm = { nombrePareja: '', puntaje: 0 };
+  etapa = 'grupo';
 
   ngOnInit() {
     this.parejas = JSON.parse(localStorage.getItem('parejas') || '[]');
-    this.parejas = this.shuffleArray(this.parejas);
+    this.seleccionarSemifinalistas();
   }
 
-  shuffleArray(array: any[]): any[] {
-    return array.sort(() => Math.random() - 0.5);
-  }
-
-  actualizarPuntajes(nuevasParejas: any[]) {
-    this.parejas = nuevasParejas;
-    this.topParejas = this.parejas.sort((a, b) => b.puntaje - a.puntaje).slice(0, 2);
-  }
-
-  eliminarJuego() {
-    if (confirm('¿Estas seguro de que deseas eliminar este juego?')) {
-      localStorage.removeItem('parejas');
-      this.parejas = [];
-      this.topParejas = [];
-      alert('Juego eliminado correctamente');
-    }
+  seleccionarSemifinalistas() {
+    this.semifinalistas = [...this.parejas]
+      .sort((a, b) => b.puntaje - a.puntaje)
+      .slice(0, 2);
   }
 
   openModal() {
@@ -39,5 +31,37 @@ export class CourtsComponent implements OnInit {
 
   closeModal() {
     this.isModalOpen = false;
+  }
+
+  addScore() {
+    const pareja = this.parejas.find(p => p.nombre === this.scoreForm.nombrePareja);
+    if (pareja) {
+      pareja.puntaje += +this.scoreForm.puntaje;
+
+      if (this.etapa === 'semifinal') {
+        pareja.puntajeSemifinal = pareja.puntaje;
+        this.determinarFinalista();
+      }
+
+      localStorage.setItem('parejas', JSON.stringify(this.parejas));
+      this.scoreForm = { nombrePareja: '', puntaje: 0 };
+      this.closeModal();
+      Swal.fire('Puntaje agregado correctamente', '', 'success');
+
+      this.seleccionarSemifinalistas();
+    }
+  }
+
+  determinarFinalista() {
+    if (this.semifinalistas.length > 1) {
+      this.finalista = this.semifinalistas.reduce((a, b) => (a.puntajeSemifinal > b.puntajeSemifinal ? a : b));
+    }
+  }
+
+  cambiarEtapa(nuevaEtapa: string) {
+    this.etapa = nuevaEtapa;
+    if (nuevaEtapa === 'semifinal') {
+      this.seleccionarSemifinalistas();
+    }
   }
 }
