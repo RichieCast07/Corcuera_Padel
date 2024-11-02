@@ -1,10 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-storages',
   templateUrl: './storages.component.html',
-  styleUrl: './storages.component.css'
+  styleUrls: ['./storages.component.css']
 })
-export class StoragesComponent {
+export class StoragesComponent implements OnInit {
+  parejasEliminadas: any[] = [];
+  canchasEliminadas: any[] = [];
 
+  ngOnInit() {
+    this.loadEliminadas();
+  }
+
+  loadEliminadas() {
+    this.parejasEliminadas = JSON.parse(localStorage.getItem('parejasEliminadas') || '[]');
+    this.canchasEliminadas = JSON.parse(localStorage.getItem('canchasEliminadas') || '[]');
+  }
 }

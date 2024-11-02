@@ -1,1 +1,67 @@
-<p>storages works!</p>
+<nav class="navbarm">
+    <div class="navbarm-logo">
+        <img src="assets/images/Cocuera_Logo.png" alt="Logo">
+    </div>
+    <div class="navbarm-links">
+        <a routerLink="/courts">
+            <i class="fa-regular fa-pen-to-square"></i>
+        </a>
+        <a routerLink="/couples" class="couples-link">
+            <i class="fa-solid fa-user-group"></i>
+        </a>
+        <a routerLink="/login" class="login-link">
+            <i class="fa-regular fa-user user-icon"></i>
+        </a>
+        <a routerLink="/storage" class="storage-link">
+            <i class="fa-solid fa-box"></i>
+        </a>
+    </div>
+</nav>
+
+<div class="almacen-container">
+    <header class="almacen-header">
+        <h1>Almacén</h1>
+    </header>
+
+    <div class="parejas-eliminadas">
+        <h2>Parejas Almacenadas</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre de Pareja</th>
+                    <th>Padelista 1</th>
+                    <th>Padelista 2</th>
+                    <th>Cancha</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let pareja of parejasEliminadas">
+                    <td>{{ pareja.nombre }}</td>
+                    <td>{{ pareja.padelista1 }}</td>
+                    <td>{{ pareja.padelista2 }}</td>
+                    <td>{{ pareja.cancha }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+  
+    <div class="canchas-eliminadas">
+        <h2>Canchas Almacenadas</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre de Cancha</th>
+                    <th>Localidad</th>
+                    <th>Tamaño</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let cancha of canchasEliminadas">
+                    <td>{{ cancha.nombre }}</td>
+                    <td>{{ cancha.localidad }}</td>
+                    <td>{{ cancha.tamano }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

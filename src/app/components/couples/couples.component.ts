@@ -104,8 +104,9 @@ export class CouplesComponent implements OnInit {
   }
 
   deleteCouple(index: number) {
-    if (confirm('¿Estas seguro de que deseas eliminar esta pareja?')) {
+    if (confirm('¿Estas seguro de que deseas almacenar esta pareja?')) {
       const canchaNombre = this.parejas[index].cancha;
+      const parejaEliminada = this.parejas[index];
       this.parejas.splice(index, 1);
       localStorage.setItem('parejas', JSON.stringify(this.parejas));
 
@@ -113,7 +114,12 @@ export class CouplesComponent implements OnInit {
       if (!isCanchaUsed) {
         this.setCanchaStatus(canchaNombre, 'Libre');
       }
-      Swal.fire('Pareja eliminada correctamente', '', 'success');
+
+      const parejasEliminadas = JSON.parse(localStorage.getItem('parejasEliminadas') || '[]');
+      parejasEliminadas.push(parejaEliminada);
+      localStorage.setItem('parejasEliminadas', JSON.stringify(parejasEliminadas));
+
+      Swal.fire('Pareja almacenada correctamente', '', 'success');
     }
   }
 
@@ -129,9 +135,15 @@ export class CouplesComponent implements OnInit {
   deleteCancha(cancha: Cancha) {
     const canchaIndex = this.canchas.indexOf(cancha);
     if (canchaIndex > -1) {
+      const canchaEliminada = this.canchas[canchaIndex];
       this.canchas.splice(canchaIndex, 1);
       localStorage.setItem('canchas', JSON.stringify(this.canchas));
-      Swal.fire('Cancha eliminada correctamente', '', 'success');
+
+      const canchasEliminadas = JSON.parse(localStorage.getItem('canchasEliminadas') || '[]');
+      canchasEliminadas.push(canchaEliminada);
+      localStorage.setItem('canchasEliminadas', JSON.stringify(canchasEliminadas));
+
+      Swal.fire('Cancha almacenada correctamente', '', 'success');
     }
   }
 

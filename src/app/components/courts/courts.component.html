@@ -3,7 +3,10 @@
         <img src="assets/images/Cocuera_Logo.png" alt="Logo">
     </div>
     <div class="navbarm-links">
-        <a routerLink="/courts" class="">
+        <a routerLink="/storages" class="storage-link">
+            <i class="fa-solid fa-box"></i>
+        </a>
+        <a routerLink="/courts">
             <i class="fa-regular fa-pen-to-square"></i>
         </a>
         <a routerLink="/couples" class="couples-link">
@@ -12,9 +15,11 @@
         <a routerLink="/login" class="login-link">
             <i class="fa-regular fa-user user-icon"></i>
         </a>
+        <a routerLink="/storage" class="storage-link">
+            <i class="fa-solid fa-box"></i>
+        </a>
     </div>
 </nav>
-
 
 <div class="formacion-container">
     <header class="formacion-header">
@@ -77,15 +82,13 @@
                 </div>
                 <div class="puntaje-group">
                     <label for="score">Puntaje</label>
-                    <input type="number" [(ngModel)]="scoreForm.puntaje" name="puntaje" placeholder="Ingrese el puntaje"
-                        required>
+                    <input type="number" [(ngModel)]="scoreForm.puntaje" name="puntaje" placeholder="Ingrese el puntaje" required>
                 </div>
                 <button type="submit" class="submit-button">Guardar Puntaje</button>
             </form>
         </div>
     </div>
 </div>
-
 
 <div id="puntajeModal" class="modal" *ngIf="isModalOpenCourts">
     <div class="modal-content">
@@ -94,12 +97,10 @@
             <h2>Almacenar Pareja</h2>
         </header>
         <div class="modal-body">
-            <form (ngSubmit)="addScore()">
+            <form (ngSubmit)="storeCouple()">
                 <div class="puntaje-group">
                     <label for="coupleName">Nombre de la Pareja</label>
-                    <select [(ngModel)]="scoreForm.nombrePareja" name="nombrePareja" required>
-                        <option *ngFor="let pareja of parejas" [value]="pareja.nombre">{{ pareja.nombre }}</option>
-                    </select>
+                    <input type="text" [(ngModel)]="scoreForm.nombrePareja" name="nombrePareja" placeholder="Ingrese el nombre" required>
                 </div>
                 <button type="submit" class="submit-button">Almacenar Pareja</button>
             </form>

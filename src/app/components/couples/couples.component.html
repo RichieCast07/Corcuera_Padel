@@ -3,6 +3,9 @@
         <img src="assets/images/Cocuera_Logo.png" alt="Logo">
     </div>
     <div class="navbar-links">
+        <a routerLink="/storages" class="storage-link">
+            <i class="fa-solid fa-box"></i>
+        </a>
         <a routerLink="/courts" class="courts-link">
             <i class="fa-regular fa-pen-to-square"></i>
         </a>
@@ -97,7 +100,7 @@
                         <td>{{ getDisponibilidad(pareja.cancha) }}</td>
                         <td>
                             <button (click)="editCouple(i)" class="submit-button">Editar</button>
-                            <button (click)="deleteCouple(i)" class="submit-button delete">Eliminar</button>
+                            <button (click)="deleteCouple(i)" class="submit-button delete">Almacenar</button>
                         </td>
                     </tr>
                 </tbody>
@@ -124,7 +127,7 @@
                         <td>{{ cancha.disponibilidad }}</td>
                         <td>
                             <button (click)="editCancha(cancha)" class="submit-button">Editar</button>
-                            <button (click)="deleteCancha(cancha)" class="submit-button delete">Eliminar</button>
+                            <button (click)="deleteCancha(cancha)" class="submit-button delete">Almacenar</button>
                         </td>
                     </tr>
                 </tbody>
