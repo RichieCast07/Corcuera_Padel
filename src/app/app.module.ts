@@ -6,9 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
 import { CouplesComponent } from './components/couples/couples.component';
-import { NavbarmComponent } from './components/navbarm/navbarm.component';
 import { CourtsComponent } from './components/courts/courts.component';
 
 @NgModule({
@@ -16,9 +14,7 @@ import { CourtsComponent } from './components/courts/courts.component';
     AppComponent,
     RegisterComponent,
     LoginComponent,
-    NavbarComponent,
     CouplesComponent,
-    NavbarmComponent,
     CourtsComponent,
   ],
   imports: [

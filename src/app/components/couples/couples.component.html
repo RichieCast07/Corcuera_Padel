@@ -1,4 +1,26 @@
-<app-navbarm></app-navbarm>
+<nav class="navbar">
+    <div class="navbar-logo">
+        <img src="assets/images/Cocuera_Logo.png" alt="Logo">
+    </div>
+    <div class="navbar-links">
+        <a routerLink="/courts" class="courts-link">
+            <i class="fa-regular fa-pen-to-square"></i>
+        </a>
+        <a routerLink="/couples" class="couples-link">
+            <i class="fa-solid fa-user-group"></i>
+        </a>
+        <div class="dropdown">
+            <a routerLink="#" class="login-link">
+                <i class="fa-regular fa-user user-icon"></i>
+            </a>
+            <div class="dropdown-content">
+                <a routerLink="/logout">Cerrar Sesión</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+
 <div class="parejas-container">
     <header class="parejas-header">
         <h1>Gestion de Parejas y Canchas</h1>
@@ -13,46 +35,42 @@
             <h3>Añadir Pareja</h3>
             <div class="form-group">
                 <label for="nombre-pareja">Nombre de Pareja</label>
-                <input type="text" id="nombre-pareja" [(ngModel)]="newCouple.nombre" name="nombrePareja"
-                    placeholder="Nombre de pareja" required>
+                <input type="text" id="nombre-pareja" [(ngModel)]="newCouple.nombre" name="nombrePareja" placeholder="Nombre de pareja" required>
             </div>
             <div class="form-group">
                 <label for="padelista1">Padelista 1</label>
-                <input type="text" id="padelista1" [(ngModel)]="newCouple.padelista1" name="padelista1"
-                    placeholder="Ingrese su Nombre" required>
+                <input type="text" id="padelista1" [(ngModel)]="newCouple.padelista1" name="padelista1" placeholder="Ingrese su Nombre" required>
             </div>
             <div class="form-group">
                 <label for="padelista2">Padelista 2</label>
-                <input type="text" id="padelista2" [(ngModel)]="newCouple.padelista2" name="padelista2"
-                    placeholder="Ingrese su Nombre" required>
+                <input type="text" id="padelista2" [(ngModel)]="newCouple.padelista2" name="padelista2" placeholder="Ingrese su Nombre" required>
             </div>
             <div class="form-group">
                 <label for="campo-juego">Nombre de Cancha</label>
-                <input type="text" id="campo-juego" [(ngModel)]="newCouple.cancha" name="cancha"
-                    placeholder="Ingrese el Nombre de la cancha" required>
+                <input type="text" id="campo-juego" [(ngModel)]="newCouple.cancha" name="cancha" placeholder="Ingrese el Nombre de la cancha" required>
             </div>
             <button type="submit" class="submit-button">{{ editIndex === null ? 'Añadir Pareja' : 'Actualizar Pareja' }}</button>
             <button type="button" class="submit-button" (click)="resetForm()">Limpiar</button>
         </form>
 
-        <form class="canchas-form" (ngSubmit)="addCancha()">
+        <form class="canchas-form" id="canchaForm" (ngSubmit)="addCancha()">
             <h3>Añadir Cancha</h3>
             <div class="form-group">
                 <label for="nombre-cancha">Nombre de Cancha</label>
-                <input type="text" id="nombre-cancha" [(ngModel)]="newCancha.nombre" name="nombreCancha"
-                    placeholder="Nombre de la cancha" required>
+                <input type="text" id="nombre-cancha" [(ngModel)]="newCancha.nombre" name="nombreCancha" placeholder="Nombre de la cancha" required>
             </div>
             <div class="form-group">
                 <label for="localidad">Localidad</label>
-                <input type="text" id="localidad" [(ngModel)]="newCancha.localidad" name="localidad"
-                    placeholder="Localidad de la cancha" required>
+                <input type="text" id="localidad" [(ngModel)]="newCancha.localidad" name="localidad" placeholder="Localidad de la cancha" required>
             </div>
             <div class="form-group">
                 <label for="tamano-cancha">Tamaño de la Cancha</label>
-                <input type="text" id="tamano-cancha" [(ngModel)]="newCancha.tamano" name="tamanoCancha"
-                    placeholder="Tamaño de la cancha" required>
+                <input type="text" id="tamano-cancha" [(ngModel)]="newCancha.tamano" name="tamanoCancha" placeholder="Tamaño de la cancha" required>
             </div>
-            <button type="submit" class="submit-button">Añadir Cancha</button>
+            <div class="buttons">
+                <button type="submit" class="submit-button">Añadir Cancha</button>
+                <button type="button" class="reset-button" (click)="resetCanchaForm()">Limpiar</button>
+            </div>
         </form>
     </div>
 
@@ -71,8 +89,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let pareja of parejas; let i = index"
-                        [ngClass]="{'ocupada': getDisponibilidad(pareja.cancha) === 'Ocupada'}">
+                    <tr *ngFor="let pareja of parejas; let i = index" [ngClass]="{'ocupada': getDisponibilidad(pareja.cancha) === 'Ocupada'}">
                         <td>{{ pareja.nombre }}</td>
                         <td>{{ pareja.padelista1 }}</td>
                         <td>{{ pareja.padelista2 }}</td>
@@ -96,6 +113,7 @@
                         <th>Localidad</th>
                         <th>Tamaño</th>
                         <th>Disponibilidad</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -104,6 +122,10 @@
                         <td>{{ cancha.localidad }}</td>
                         <td>{{ cancha.tamano }}</td>
                         <td>{{ cancha.disponibilidad }}</td>
+                        <td>
+                            <button (click)="editCancha(cancha)" class="submit-button">Editar</button>
+                            <button (click)="deleteCancha(cancha)" class="submit-button delete">Eliminar</button>
+                        </td>
                     </tr>
                 </tbody>
             </table>

@@ -11,6 +11,54 @@ body {
     background-color: #f4f4f4;
 }
 
+.navbarm {
+    width: 100%;
+    height: 80px;
+    background-color: #0fd9bf;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2000;
+}
+
+.navbarm-logo img {
+    width: 60px;
+    height: 60px;
+    margin-left: 10vh;
+    border-radius: 50%;
+}
+
+.navbarm-links {
+    display: flex;
+    align-items: center;
+}
+
+.navbarm-links a {
+    font-size: 25px;
+    margin: 0 30px;
+}
+
+.loginm-link {
+    margin-right: 15px;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.user-icon,
+.fa-user-group,
+.fa-pen-to-square {
+    font-size: 25px;
+    color: #ffffff;
+    margin-right: 5vh;
+    border-radius: 20px;
+}
+
 .formacion-container {
     background-color: #ffffff;
     padding: 40px;
@@ -30,6 +78,26 @@ body {
 .icons img {
     width: 50px;
     height: auto;
+}
+
+.icons {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    gap: 100vh;
+}
+
+.icon1 {
+    width: 50px;
+    height: auto;
+    transform: rotate(50deg);
+}
+.icon2 {
+    width: 50px;
+    height: auto;
+    transform: rotate(-50deg);
 }
 
 .parejas-box {
