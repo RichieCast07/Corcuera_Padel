@@ -8,6 +8,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { CouplesComponent } from './components/couples/couples.component';
 import { CourtsComponent } from './components/courts/courts.component';
+import { StoragesComponent } from './components/storages/storages.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { CourtsComponent } from './components/courts/courts.component';
     LoginComponent,
     CouplesComponent,
     CourtsComponent,
+    StoragesComponent,
   ],
   imports: [
     BrowserModule,
