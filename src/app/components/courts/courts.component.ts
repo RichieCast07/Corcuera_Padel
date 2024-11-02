@@ -12,6 +12,7 @@ export class CourtsComponent implements OnInit {
   finalista: any = null;
   isModalOpen: boolean = false;
   isRuletaOpen: boolean = false;
+  isModalOpenCourts: boolean = false;
   scoreForm = { nombrePareja: '', puntaje: 0 };
   etapa = 'grupo';
   emparejamientos: any[] = [];
@@ -57,6 +58,14 @@ export class CourtsComponent implements OnInit {
 
   closeModal() {
     this.isModalOpen = false;
+  }
+
+  openModalCourts() {
+    this.isModalOpenCourts = true;
+  }
+
+  closeModalCourts() {
+    this.isModalOpenCourts = false;
   }
 
   addScore() {

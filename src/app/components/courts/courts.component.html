@@ -58,6 +58,7 @@
     <button (click)="cambiarEtapa('grupo')" class="control-button">Grupo</button>
     <button (click)="cambiarEtapa('semifinal')" class="control-button">Semifinal</button>
     <button (click)="openModal()" class="control-button">Añadir Puntaje</button>
+    <button (click)="openModalCourts()" class="control-button">Almacenar Pareja</button>
 </div>
 
 <div id="puntajeModal" class="modal" *ngIf="isModalOpen">
@@ -80,6 +81,27 @@
                         required>
                 </div>
                 <button type="submit" class="submit-button">Guardar Puntaje</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div id="puntajeModal" class="modal" *ngIf="isModalOpenCourts">
+    <div class="modal-content">
+        <span class="close-button" (click)="closeModalCourts()">&times;</span>
+        <header class="modal-header">
+            <h2>Almacenar Pareja</h2>
+        </header>
+        <div class="modal-body">
+            <form (ngSubmit)="addScore()">
+                <div class="puntaje-group">
+                    <label for="coupleName">Nombre de la Pareja</label>
+                    <select [(ngModel)]="scoreForm.nombrePareja" name="nombrePareja" required>
+                        <option *ngFor="let pareja of parejas" [value]="pareja.nombre">{{ pareja.nombre }}</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit-button">Almacenar Pareja</button>
             </form>
         </div>
     </div>
