@@ -6,20 +6,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
 import { CouplesComponent } from './components/couples/couples.component';
-import { NavbarmComponent } from './components/navbarm/navbarm.component';
 import { CourtsComponent } from './components/courts/courts.component';
+import { StoragesComponent } from './components/storages/storages.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
     LoginComponent,
-    NavbarComponent,
     CouplesComponent,
-    NavbarmComponent,
     CourtsComponent,
+    StoragesComponent,
   ],
   imports: [
     BrowserModule,

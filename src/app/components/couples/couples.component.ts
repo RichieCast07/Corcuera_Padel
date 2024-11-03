@@ -1,17 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 
+interface Cancha {
+  nombre: string;
+  localidad: string;
+  tamano: string;
+  disponibilidad: string;
+}
+
+interface Pareja {
+  nombre: string;
+  padelista1: string;
+  padelista2: string;
+  cancha: string;
+  puntaje: number;
+}
+
 @Component({
   selector: 'app-couples',
   templateUrl: './couples.component.html',
   styleUrls: ['./couples.component.css']
 })
 export class CouplesComponent implements OnInit {
-  parejas: any[] = [];
-  canchas: any[] = [];
-  newCouple = { nombre: '', padelista1: '', padelista2: '', cancha: '' };
-  newCancha = { nombre: '', localidad: '', tamano: '', disponibilidad: 'Libre' };
+  parejas: Pareja[] = [];
+  canchas: Cancha[] = [];
+  newCouple: Pareja = { nombre: '', padelista1: '', padelista2: '', cancha: '', puntaje: 0 };
+  newCancha: Cancha = { nombre: '', localidad: '', tamano: '', disponibilidad: 'Libre' };
   editIndex: number | null = null;
+  editCanchaIndex: number | null = null; // Nuevo índice para editar canchas
 
   ngOnInit() {
     this.loadCouples();
@@ -39,43 +55,83 @@ export class CouplesComponent implements OnInit {
         Swal.fire('Este nombre de pareja ya existe. Por favor, elija un nombre diferente.', '', 'error');
         return;
       }
-    }
-
-    if (this.editIndex !== null) {
+      this.parejas.push({ ...this.newCouple });
+    } else {
       const oldCancha = this.parejas[this.editIndex].cancha;
       this.parejas[this.editIndex] = { ...this.newCouple };
 
       if (oldCancha !== this.newCouple.cancha) {
         this.setCanchaStatus(this.newCouple.cancha, 'Ocupada');
-
-        const isCanchaUsed = this.parejas.some(pareja => pareja.cancha === oldCancha);
-        if (!isCanchaUsed) {
+        const isOldCanchaUsed = this.parejas.some(pareja => pareja.cancha === oldCancha);
+        if (!isOldCanchaUsed) {
           this.setCanchaStatus(oldCancha, 'Libre');
         }
       }
-
       this.editIndex = null;
-    } else {
-      this.parejas.push({ ...this.newCouple });
-      this.setCanchaStatus(this.newCouple.cancha, 'Ocupada');
     }
 
+    this.setCanchaStatus(this.newCouple.cancha, 'Ocupada');
     localStorage.setItem('parejas', JSON.stringify(this.parejas));
     this.resetForm();
     Swal.fire('Pareja agregada correctamente', '', 'success');
   }
 
   addCancha() {
-    const nombreExistente = this.canchas.some(cancha => cancha.nombre.toLowerCase() === this.newCancha.nombre.toLowerCase());
-    if (nombreExistente) {
-      Swal.fire('Este nombre de cancha ya existe. Por favor, elija un nombre diferente.', '', 'error');
-      return;
+    if (this.editCanchaIndex !== null) {
+      this.canchas[this.editCanchaIndex] = { ...this.newCancha };
+      this.editCanchaIndex = null;
+    } else {
+      const nombreExistente = this.canchas.some(cancha => cancha.nombre.toLowerCase() === this.newCancha.nombre.toLowerCase());
+      if (nombreExistente) {
+        Swal.fire('Este nombre de cancha ya existe. Por favor, elija un nombre diferente.', '', 'error');
+        return;
+      }
+      this.canchas.push({ ...this.newCancha });
     }
-
-    this.canchas.push({ ...this.newCancha });
     localStorage.setItem('canchas', JSON.stringify(this.canchas));
-    this.newCancha = { nombre: '', localidad: '', tamano: '', disponibilidad: 'Libre' };
+    this.resetCanchaForm();
     Swal.fire('Cancha agregada correctamente', '', 'success');
+  }
+
+  deleteCouple(index: number) {
+    const parejaEliminada = this.parejas[index];
+    this.parejas.splice(index, 1);
+    localStorage.setItem('parejas', JSON.stringify(this.parejas));
+
+    const parejasAlmacenadas = JSON.parse(localStorage.getItem('parejasAlmacenadas') || '[]');
+    parejasAlmacenadas.push(parejaEliminada);
+    localStorage.setItem('parejasAlmacenadas', JSON.stringify(parejasAlmacenadas));
+
+    this.setCanchaStatus(parejaEliminada.cancha, 'Libre');
+    Swal.fire('Pareja almacenada correctamente', '', 'success');
+  }
+
+  deleteCancha(cancha: Cancha) {
+    const canchaIndex = this.canchas.indexOf(cancha);
+    if (canchaIndex > -1) {
+      const canchaEliminada = this.canchas[canchaIndex];
+      this.canchas.splice(canchaIndex, 1);
+      localStorage.setItem('canchas', JSON.stringify(this.canchas));
+
+      const canchasAlmacenadas = JSON.parse(localStorage.getItem('canchasEliminadas') || '[]');
+      canchasAlmacenadas.push(canchaEliminada);
+      localStorage.setItem('canchasEliminadas', JSON.stringify(canchasAlmacenadas));
+
+      Swal.fire('Cancha almacenada correctamente', '', 'success');
+    }
+  }
+
+  editCouple(index: number) {
+    this.newCouple = { ...this.parejas[index] };
+    this.editIndex = index;
+  }
+
+  editCancha(cancha: Cancha) {
+    const index = this.canchas.indexOf(cancha);
+    if (index > -1) {
+      this.newCancha = { ...cancha };
+      this.editCanchaIndex = index;
+    }
   }
 
   setCanchaStatus(nombreCancha: string, status: string) {
@@ -86,32 +142,18 @@ export class CouplesComponent implements OnInit {
     localStorage.setItem('canchas', JSON.stringify(this.canchas));
   }
 
-  editCouple(index: number) {
-    this.newCouple = { ...this.parejas[index] };
-    this.editIndex = index;
-  }
-
-  deleteCouple(index: number) {
-    if (confirm('¿Estás seguro de que deseas eliminar esta pareja?')) {
-      const canchaNombre = this.parejas[index].cancha;
-      this.parejas.splice(index, 1);
-      localStorage.setItem('parejas', JSON.stringify(this.parejas));
-
-      const isCanchaUsed = this.parejas.some(pareja => pareja.cancha === canchaNombre);
-      if (!isCanchaUsed) {
-        this.setCanchaStatus(canchaNombre, 'Libre');
-      }
-      Swal.fire('Pareja eliminada correctamente', '', 'success');
-    }
-  }
-
-  resetForm() {
-    this.newCouple = { nombre: '', padelista1: '', padelista2: '', cancha: '' };
-    this.editIndex = null;
-  }
-
   getDisponibilidad(nombreCancha: string): string {
     const cancha = this.canchas.find(c => c.nombre === nombreCancha);
     return cancha ? cancha.disponibilidad : 'Libre';
+  }
+
+  resetForm() {
+    this.newCouple = { nombre: '', padelista1: '', padelista2: '', cancha: '', puntaje: 0 };
+    this.editIndex = null;
+  }
+
+  resetCanchaForm() {
+    this.newCancha = { nombre: '', localidad: '', tamano: '', disponibilidad: 'Libre' };
+    this.editCanchaIndex = null;
   }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 
+
 @Component({
   selector: 'app-courts',
   templateUrl: './courts.component.html',
@@ -12,6 +13,7 @@ export class CourtsComponent implements OnInit {
   finalista: any = null;
   isModalOpen: boolean = false;
   isRuletaOpen: boolean = false;
+  isModalOpenCourts: boolean = false;
   scoreForm = { nombrePareja: '', puntaje: 0 };
   etapa = 'grupo';
   emparejamientos: any[] = [];
@@ -59,21 +61,26 @@ export class CourtsComponent implements OnInit {
     this.isModalOpen = false;
   }
 
+  openModalCourts() {
+    this.isModalOpenCourts = true;
+  }
+
+  closeModalCourts() {
+    this.isModalOpenCourts = false;
+  }
+
   addScore() {
     const pareja = this.parejas.find(p => p.nombre === this.scoreForm.nombrePareja);
     if (pareja) {
       pareja.puntaje += +this.scoreForm.puntaje;
-
       if (this.etapa === 'semifinal') {
         pareja.puntajeSemifinal = pareja.puntaje;
         this.determinarFinalista();
       }
-
       localStorage.setItem('parejas', JSON.stringify(this.parejas));
       this.scoreForm = { nombrePareja: '', puntaje: 0 };
       this.closeModal();
       Swal.fire('Puntaje agregado correctamente', '', 'success');
-
       this.seleccionarSemifinalistas();
     }
   }
@@ -88,6 +95,22 @@ export class CourtsComponent implements OnInit {
     this.etapa = nuevaEtapa;
     if (nuevaEtapa === 'semifinal') {
       this.seleccionarSemifinalistas();
+    }
+  }
+
+  storeCouple() {
+    const pareja = this.parejas.find(p => p.nombre === this.scoreForm.nombrePareja);
+    if (pareja) {
+      const parejasAlmacenadas = JSON.parse(localStorage.getItem('parejasAlmacenadas') || '[]');
+      parejasAlmacenadas.push({ ...pareja });
+      localStorage.setItem('parejasAlmacenadas', JSON.stringify(parejasAlmacenadas));
+
+      this.parejas = this.parejas.filter(p => p.nombre !== this.scoreForm.nombrePareja);
+      localStorage.setItem('parejas', JSON.stringify(this.parejas));
+
+      this.scoreForm = { nombrePareja: '', puntaje: 0 };
+      this.closeModalCourts();
+      Swal.fire('Pareja almacenada correctamente', '', 'success');
     }
   }
 }
