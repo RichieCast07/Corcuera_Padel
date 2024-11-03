@@ -38,6 +38,16 @@
     text-decoration: none;
 }
 
+.navbarm-links .nav-icon {
+    width: 10vh;
+    height: 8vh;
+    transition: transform 0.2s;
+}
+
+.navbarm-links a:hover .nav-icon {
+    transform: scale(1.1);
+}
+
 .storage-link i,
 .user-icon,
 .fa-user-group,

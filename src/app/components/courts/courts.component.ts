@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 
+
 @Component({
   selector: 'app-courts',
   templateUrl: './courts.component.html',
@@ -8,7 +9,6 @@ import Swal from 'sweetalert2';
 })
 export class CourtsComponent implements OnInit {
   parejas: any[] = [];
-  canchas: any[] = [];
   semifinalistas: any[] = [];
   finalista: any = null;
   isModalOpen: boolean = false;
@@ -20,7 +20,6 @@ export class CourtsComponent implements OnInit {
 
   ngOnInit() {
     this.parejas = JSON.parse(localStorage.getItem('parejas') || '[]');
-    this.canchas = JSON.parse(localStorage.getItem('canchas') || '[]');
     this.seleccionarSemifinalistas();
   }
 
@@ -73,21 +72,16 @@ export class CourtsComponent implements OnInit {
   addScore() {
     const pareja = this.parejas.find(p => p.nombre === this.scoreForm.nombrePareja);
     if (pareja) {
-      const puntajeNuevo = parseFloat(this.scoreForm.puntaje.toString());
-      if (!isNaN(puntajeNuevo)) {
-        pareja.puntaje = (pareja.puntaje || 0) + puntajeNuevo;
-        if (this.etapa === 'semifinal') {
-          pareja.puntajeSemifinal = pareja.puntaje;
-          this.determinarFinalista();
-        }
-        localStorage.setItem('parejas', JSON.stringify(this.parejas));
-        this.scoreForm = { nombrePareja: '', puntaje: 0 };
-        this.closeModal();
-        Swal.fire('Puntaje agregado correctamente', '', 'success');
-        this.seleccionarSemifinalistas();
-      } else {
-        Swal.fire('El puntaje ingresado no es válido.', '', 'error');
+      pareja.puntaje += +this.scoreForm.puntaje;
+      if (this.etapa === 'semifinal') {
+        pareja.puntajeSemifinal = pareja.puntaje;
+        this.determinarFinalista();
       }
+      localStorage.setItem('parejas', JSON.stringify(this.parejas));
+      this.scoreForm = { nombrePareja: '', puntaje: 0 };
+      this.closeModal();
+      Swal.fire('Puntaje agregado correctamente', '', 'success');
+      this.seleccionarSemifinalistas();
     }
   }
 
@@ -104,47 +98,19 @@ export class CourtsComponent implements OnInit {
     }
   }
 
-  deleteCouple(index: number) {
-    if (confirm('¿Estás seguro de que deseas eliminar esta pareja?')) {
-      const parejaEliminada = this.parejas[index];
-      this.parejas.splice(index, 1);
+  storeCouple() {
+    const pareja = this.parejas.find(p => p.nombre === this.scoreForm.nombrePareja);
+    if (pareja) {
+      const parejasAlmacenadas = JSON.parse(localStorage.getItem('parejasAlmacenadas') || '[]');
+      parejasAlmacenadas.push({ ...pareja });
+      localStorage.setItem('parejasAlmacenadas', JSON.stringify(parejasAlmacenadas));
+
+      this.parejas = this.parejas.filter(p => p.nombre !== this.scoreForm.nombrePareja);
       localStorage.setItem('parejas', JSON.stringify(this.parejas));
 
-      const parejasEliminadas = JSON.parse(localStorage.getItem('parejasEliminadas') || '[]');
-      parejasEliminadas.push(parejaEliminada);
-      localStorage.setItem('parejasEliminadas', JSON.stringify(parejasEliminadas));
-
-      Swal.fire('Pareja eliminada correctamente', '', 'success');
+      this.scoreForm = { nombrePareja: '', puntaje: 0 };
+      this.closeModalCourts();
+      Swal.fire('Pareja almacenada correctamente', '', 'success');
     }
-  }
-
-  deleteCancha(index: number) {
-    if (confirm('¿Estás seguro de que deseas eliminar esta cancha?')) {
-      const canchaEliminada = this.canchas[index];
-      this.canchas.splice(index, 1);
-      localStorage.setItem('canchas', JSON.stringify(this.canchas));
-
-      const canchasEliminadas = JSON.parse(localStorage.getItem('canchasEliminadas') || '[]');
-      canchasEliminadas.push(canchaEliminada);
-      localStorage.setItem('canchasEliminadas', JSON.stringify(canchasEliminadas));
-
-      Swal.fire('Cancha eliminada correctamente', '', 'success');
-    }
-  }
-
-  storeCouple() {
-    const nuevaPareja = {
-      nombre: this.scoreForm.nombrePareja,
-      puntaje: 0
-    };
-    const parejasAlmacenadas = JSON.parse(localStorage.getItem('parejasAlmacenadas') || '[]');
-    parejasAlmacenadas.push(nuevaPareja);
-    localStorage.setItem('parejasAlmacenadas', JSON.stringify(parejasAlmacenadas));
-
-    this.parejas = this.parejas.filter(p => p.nombre !== this.scoreForm.nombrePareja);
-    localStorage.setItem('parejas', JSON.stringify(this.parejas));
-    this.scoreForm = { nombrePareja: '', puntaje: 0 };
-    this.closeModalCourts();
-    Swal.fire('Pareja almacenada correctamente', '', 'success');
   }
 }

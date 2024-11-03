@@ -36,6 +36,16 @@
     margin: 0 30px;
 }
 
+.navbar-links .nav-icon {
+    width: 10vh;
+    height: 8vh;
+    transition: transform 0.2s;
+}
+
+.navbar-links a:hover .nav-icon {
+    transform: scale(1.1);
+}
+
 .login-link {
     margin-right: 15px;
     color: #ffffff;
@@ -126,6 +136,7 @@
     height: auto;
     transform: rotate(50deg);
 }
+
 .icon2 {
     width: 50px;
     height: auto;

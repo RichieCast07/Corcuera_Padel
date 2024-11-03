@@ -14,7 +14,7 @@ export class StoragesComponent implements OnInit {
   }
 
   loadEliminadas() {
-    this.parejasEliminadas = JSON.parse(localStorage.getItem('parejasEliminadas') || '[]');
+    this.parejasEliminadas = JSON.parse(localStorage.getItem('parejasAlmacenadas') || '[]');
     this.canchasEliminadas = JSON.parse(localStorage.getItem('canchasEliminadas') || '[]');
   }
 }

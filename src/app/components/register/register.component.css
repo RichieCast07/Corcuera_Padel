@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@100..800&display=swap');
-
 * {
     font-family: 'Playpen Sans';
 }
@@ -149,4 +147,16 @@ input {
 
 .submit-button:hover {
     background-color: #0bb8a8;
+}
+
+.login-prompt {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.login-prompt .login-link {
+    color: #0fd9bf;
+    cursor: pointer;
+    text-decoration: underline;
+    font-weight: bold;
 }
