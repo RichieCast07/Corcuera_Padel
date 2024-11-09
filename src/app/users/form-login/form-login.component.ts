@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-form-login',
+  templateUrl: './form-login.component.html',
+  styleUrl: './form-login.component.css'
 })
-export class LoginComponent {
+export class FormLoginComponent {
   contacto: string = '';
   password: string = '';
 
