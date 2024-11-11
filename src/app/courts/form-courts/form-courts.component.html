@@ -6,6 +6,9 @@
         <a routerLink="/storages" class="storage-link">
             <img src="assets/icons/storage.png" alt="Storage Icon" class="nav-icon">
         </a>
+        <a routerLink="/table-formation" class="table-formation-link">
+            <img src="assets/icons/gameformation.png" alt="Table-Formation Icon" class="nav-icon">
+        </a>
         <a routerLink="/courts">
             <img src="assets/icons/courts.png" alt="Courts Icon" class="nav-icon">
         </a>
@@ -23,8 +26,8 @@
     </div>
 </nav>
 
-<div class="canchas-container">
-    <header class="canchas-header">
+<div class="courts-container">
+    <header class="courts-header">
         <h1>Gestión de Canchas</h1>
         <div class="icons">
             <img src="assets/images/Raqueta_roja.png" alt="Icon 1" class="icon1">
@@ -32,49 +35,50 @@
         </div>
     </header>
 
-<form class="canchas-form" id="canchaForm" (ngSubmit)="addCancha()">
-    <h3>Añadir Cancha</h3>
-    <div class="form-group">
-        <label for="nombre-cancha">Nombre de Cancha</label>
-        <input type="text" id="nombre-cancha" [(ngModel)]="newCancha.nombre" name="nombreCancha" placeholder="Nombre de la cancha" required>
-    </div>
-    <div class="form-group">
-        <label for="localidad">Localidad</label>
-        <input type="text" id="localidad" [(ngModel)]="newCancha.localidad" name="localidad" placeholder="Localidad de la cancha" required>
-    </div>
-    <div class="form-group">
-        <label for="tamano-cancha">Tamaño de la Cancha</label>
-        <input type="text" id="tamano-cancha" [(ngModel)]="newCancha.tamano" name="tamanoCancha" placeholder="Tamaño de la cancha" required>
-    </div>
-    <div class="buttons">
-        <button type="submit" class="submit-button">Añadir Cancha</button>
-        <button type="button" class="reset-button" (click)="resetCanchaForm()">Limpiar</button>
-    </div>
-</form>
+    <form class="courts-form" id="courtForm" (ngSubmit)="addCourt()">
+        <h3>Añadir Cancha</h3>
+        <div class="form-group">
+            <label for="nombre-court">Nombre de Cancha</label>
+            <input type="text" id="nombre-court" [(ngModel)]="newCourt.nombre" name="nombreCourt" placeholder="Nombre de la cancha" required>
+        </div>
+        <div class="form-group">
+            <label for="localidad">Localidad</label>
+            <input type="text" id="localidad" [(ngModel)]="newCourt.localidad" name="localidad" placeholder="Localidad de la cancha" required>
+        </div>
+        <div class="form-group">
+            <label for="tamano-court">Tamaño de la Cancha</label>
+            <input type="text" id="tamano-court" [(ngModel)]="newCourt.tamano" name="tamanoCourt" placeholder="Tamaño de la cancha" required>
+        </div>
+        <div class="buttons">
+            <button type="submit" class="submit-button">Añadir Cancha</button>
+            <button type="button" class="reset-button" (click)="resetCourtForm()">Limpiar</button>
+        </div>
+    </form>
 
-<div class="canchas-box">
-    <h3>Canchas</h3>
-    <table>
-        <thead>
-            <tr>
-                <th>Nombre de Cancha</th>
-                <th>Localidad</th>
-                <th>Tamaño</th>
-                <th>Disponibilidad</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let cancha of canchas">
-                <td>{{ cancha.nombre }}</td>
-                <td>{{ cancha.localidad }}</td>
-                <td>{{ cancha.tamano }}</td>
-                <td>{{ cancha.disponibilidad }}</td>
-                <td>
-                    <button (click)="editCancha(cancha)" class="submit-button">Editar</button>
-                    <button (click)="deleteCancha(cancha)" class="submit-button delete">Almacenar</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="courts-box">
+        <h3>Canchas</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre de Cancha</th>
+                    <th>Localidad</th>
+                    <th>Tamaño</th>
+                    <th>Disponibilidad</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let court of courts">
+                    <td>{{ court.nombre }}</td>
+                    <td>{{ court.localidad }}</td>
+                    <td>{{ court.tamano }}</td>
+                    <td>{{ court.disponibilidad }}</td>
+                    <td>
+                        <button (click)="editCourt(court)" class="submit-button">Editar</button>
+                        <button (click)="deleteCourt(court)" class="submit-button delete">Almacenar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

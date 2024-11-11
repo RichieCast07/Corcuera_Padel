@@ -97,30 +97,6 @@
     display: block;
 }
 
-.parejas-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    padding-top: 10vh;
-    background-color: #ffffff;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.parejas-header {
-    position: relative;
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.parejas-header h1 {
-    padding-top: 10vh;
-    font-size: 32px;
-    margin: 0;
-    color: #000;
-}
-
 .icons {
     padding-top: 10vh;
     position: absolute;
@@ -153,7 +129,6 @@
     margin: 0 auto;
 }
 
-.parejas-form,
 .canchas-form {
     background-color: #f1f1f1;
     padding: 40px;
@@ -188,6 +163,7 @@ input[type="text"] {
     display: flex;
     gap: 10px;
     margin-top: 10px;
+    cursor: pointer;
 }
 
 .submit-button,
@@ -261,6 +237,7 @@ td.ocupada {
     background-color: #ffda44;
     color: #000;
     border: 1px solid #ccc;
+    cursor: pointer;
 }
 
 .edit-button:hover {
@@ -271,6 +248,7 @@ td.ocupada {
     background-color: #ff6159;
     color: #fff;
     border: 1px solid #ccc;
+    cursor: pointer;
 }
 
 .delete-button:hover {
@@ -283,7 +261,6 @@ td.ocupada {
         align-items: center;
     }
 
-    .parejas-form,
     .canchas-form {
         max-width: 100%;
     }

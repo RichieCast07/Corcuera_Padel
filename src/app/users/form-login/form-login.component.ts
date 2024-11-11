@@ -1,37 +1,32 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-form-login',
   templateUrl: './form-login.component.html',
-  styleUrl: './form-login.component.css'
+  styleUrls: ['./form-login.component.css']
 })
 export class FormLoginComponent {
   contacto: string = '';
   password: string = '';
 
-  constructor(private router: Router) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   login() {
-    //  Se piden los usuarios existentes de LocalStorage
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
-
-    // Se agregan logs para depurar
     console.log('Datos ingresados:', this.contacto, this.password);
-    console.log('Usuarios almacenados:', users);
 
-    // Busca si el usuario existe y coincide la contraseña
-    const user = users.find((u: any) =>
-      u.contacto.trim() === this.contacto.trim() &&
-      u.password.trim() === this.password.trim()
+    this.userService.login(this.contacto, this.password).subscribe(
+      response => {
+        console.log('Inicio de sesión exitoso:', response);
+        localStorage.setItem('loggedInUser', JSON.stringify(response.user));
+        alert('Inicio de sesión exitoso!');
+        this.router.navigate(['/couples']);
+      },
+      error => {
+        console.error('Error de inicio de sesión:', error);
+        alert('Usuario o contraseña incorrectos.');
+      }
     );
-
-    if (user) {
-      // Guarda el usuario autenticado en LocalStorage
-      localStorage.setItem('loggedInUser', JSON.stringify(user));
-      alert('Inicio de sesión exitoso!');
-      this.router.navigate(['/couples']);
-    } else {
-      alert('Usuario o contraseña incorrectos.');
-    }
   }
 }

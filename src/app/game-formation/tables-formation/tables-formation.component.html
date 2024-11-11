@@ -6,6 +6,9 @@
         <a routerLink="/storages" class="storage-link">
             <img src="assets/icons/storage.png" alt="Storage Icon" class="nav-icon">
         </a>
+        <a routerLink="/table-formation" class="table-formation-link">
+            <img src="assets/icons/gameformation" alt="Table-Formation Icon" class="nav-icon">
+        </a>
         <a routerLink="/courts">
             <img src="assets/icons/courts.png" alt="Courts Icon" class="nav-icon">
         </a>
@@ -17,7 +20,6 @@
         </a>
     </div>
 </nav>
-
 
 <div class="formacion-container">
     <header class="formacion-header">
@@ -46,78 +48,9 @@
         </table>
     </div>
 
-    <div *ngIf="etapa === 'semifinal'" class="semifinalistas">
-        <h2>Semifinalistas</h2>
-        <ul>
-            <li *ngFor="let pareja of semifinalistas">{{ pareja.nombre }} - Puntos: {{ pareja.puntaje }}</li>
-        </ul>
-    </div>
-
-    <div *ngIf="finalista" class="finalista">
-        <h2>Finalista: {{ finalista.nombre }}</h2>
-    </div>
-
     <button (click)="iniciarRuleta()" class="control-button">Iniciar Ruleta</button>
     <button (click)="cambiarEtapa('grupo')" class="control-button">Grupo</button>
     <button (click)="cambiarEtapa('semifinal')" class="control-button">Semifinal</button>
     <button (click)="openModal()" class="control-button">Añadir Puntaje</button>
     <button (click)="openModalCourts()" class="control-button">Almacenar Pareja</button>
-</div>
-
-<div id="puntajeModal" class="modal" *ngIf="isModalOpen">
-    <div class="modal-content">
-        <span class="close-button" (click)="closeModal()">&times;</span>
-        <header class="modal-header">
-            <h2>Añadir Puntaje</h2>
-        </header>
-        <div class="modal-body">
-            <form (ngSubmit)="addScore()">
-                <div class="puntaje-group">
-                    <label for="coupleName">Nombre de la Pareja</label>
-                    <select [(ngModel)]="scoreForm.nombrePareja" name="nombrePareja" required>
-                        <option *ngFor="let pareja of parejas" [value]="pareja.nombre">{{ pareja.nombre }}</option>
-                    </select>
-                </div>
-                <div class="puntaje-group">
-                    <label for="score">Puntaje</label>
-                    <input type="number" [(ngModel)]="scoreForm.puntaje" name="puntaje" placeholder="Ingrese el puntaje" required>
-                </div>
-                <button type="submit" class="submit-button">Guardar Puntaje</button>
-            </form>
-        </div>
-    </div>
-</div>
-
-<div id="puntajeModal" class="modal" *ngIf="isModalOpenCourts">
-    <div class="modal-content">
-        <span class="close-button" (click)="closeModalCourts()">&times;</span>
-        <header class="modal-header">
-            <h2>Almacenar Pareja</h2>
-        </header>
-        <div class="modal-body">
-            <form (ngSubmit)="storeCouple()">
-                <div class="puntaje-group">
-                    <label for="coupleName">Nombre de la Pareja</label>
-                    <input type="text" [(ngModel)]="scoreForm.nombrePareja" name="nombrePareja" placeholder="Ingrese el nombre" required>
-                </div>
-                <button type="submit" class="submit-button">Almacenar Pareja</button>
-            </form>
-        </div>
-    </div>
-</div>
-
-<div id="ruletaModal" class="modal" *ngIf="isRuletaOpen">
-    <div class="modal-content">
-        <span class="close-button" (click)="closeRuleta()">&times;</span>
-        <header class="modal-header">
-            <h2>Emparejamiento Aleatorio</h2>
-        </header>
-        <div class="modal-body">
-            <ul>
-                <li *ngFor="let emparejamiento of emparejamientos">
-                    {{ emparejamiento[0].nombre }} vs {{ emparejamiento[1].nombre }}
-                </li>
-            </ul>
-        </div>
-    </div>
 </div>

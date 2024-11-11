@@ -1,19 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormCouplesComponent } from './form-couples/form-couples.component';
 import { FormsModule } from '@angular/forms';
+import { StoragesComponent } from './storages.component';
 import { RouterModule } from '@angular/router';
 
 
 
 @NgModule({
   declarations: [
-    FormCouplesComponent
+    StoragesComponent
   ],
+
   imports: [
     CommonModule,
     FormsModule,
     RouterModule
   ]
 })
-export class CouplesModule { }
+export class StoragesModule { }
