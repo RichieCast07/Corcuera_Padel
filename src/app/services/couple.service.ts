@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class CoupleService {
 
-    private apiUrl = 'http://localhost:3000/couple/';
+    private apiUrl = 'http://98.85.25.121//couple/';
 
     constructor(private http: HttpClient) { }
 
