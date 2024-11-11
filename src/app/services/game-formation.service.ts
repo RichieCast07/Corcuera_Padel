@@ -7,7 +7,7 @@ import { GameFormation } from '../interfaces/game-formation';
     providedIn: 'root'
 })
 export class GameFormationService {
-    private apiUrl = 'http://localhost:3000/gameformation/';
+    private apiUrl = 'http://98.85.25.121/gameformation/';
 
     constructor(private http: HttpClient) { }
 

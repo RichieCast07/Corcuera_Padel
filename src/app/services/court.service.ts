@@ -7,7 +7,7 @@ import { Court } from '../interfaces/courts';
     providedIn: 'root'
 })
 export class CourtService {
-    private apiUrl = 'http://localhost:3000/court/';
+    private apiUrl = 'http://98.85.25.121/court/';
 
     constructor(private http: HttpClient) { }
 
