@@ -4,25 +4,26 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { RegisterComponent } from './components/register/register.component';
-import { LoginComponent } from './components/login/login.component';
-import { CouplesComponent } from './components/couples/couples.component';
-import { CourtsComponent } from './components/courts/courts.component';
-import { StoragesComponent } from './components/storages/storages.component';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule, Routes } from '@angular/router';
+import { CourtsModule } from './courts/courts.module';
+import { StoragesModule } from './storages/storages.module';
+import { UsersModule } from './users/users.module';
+import { CouplesModule } from './couples/couples.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RegisterComponent,
-    LoginComponent,
-    CouplesComponent,
-    CourtsComponent,
-    StoragesComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    CourtsModule,
+    CouplesModule,
+    UsersModule,
+    StoragesModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

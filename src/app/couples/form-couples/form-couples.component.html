@@ -6,6 +6,9 @@
         <a routerLink="/storages" class="storage-link">
             <img src="assets/icons/storage.png" alt="Storage Icon" class="nav-icon">
         </a>
+        <a routerLink="/table-formation" class="table-formation-link">
+            <img src="assets/icons/gameformation.png" alt="Table-Formation Icon" class="nav-icon">
+        </a>
         <a routerLink="/courts">
             <img src="assets/icons/courts.png" alt="Courts Icon" class="nav-icon">
         </a>
@@ -25,7 +28,7 @@
 
 <div class="parejas-container">
     <header class="parejas-header">
-        <h1>Gestión de Parejas y Canchas</h1>
+        <h1>Gestión de Parejas</h1>
         <div class="icons">
             <img src="assets/images/Raqueta_roja.png" alt="Icon 1" class="icon1">
             <img src="assets/images/Raqueta_celesta.png" alt="Icon 2" class="icon2">
@@ -54,26 +57,6 @@
             <button type="submit" class="submit-button">{{ editIndex === null ? 'Añadir Pareja' : 'Actualizar Pareja' }}</button>
             <button type="button" class="submit-button" (click)="resetForm()">Limpiar</button>
         </form>
-
-        <form class="canchas-form" id="canchaForm" (ngSubmit)="addCancha()">
-            <h3>Añadir Cancha</h3>
-            <div class="form-group">
-                <label for="nombre-cancha">Nombre de Cancha</label>
-                <input type="text" id="nombre-cancha" [(ngModel)]="newCancha.nombre" name="nombreCancha" placeholder="Nombre de la cancha" required>
-            </div>
-            <div class="form-group">
-                <label for="localidad">Localidad</label>
-                <input type="text" id="localidad" [(ngModel)]="newCancha.localidad" name="localidad" placeholder="Localidad de la cancha" required>
-            </div>
-            <div class="form-group">
-                <label for="tamano-cancha">Tamaño de la Cancha</label>
-                <input type="text" id="tamano-cancha" [(ngModel)]="newCancha.tamano" name="tamanoCancha" placeholder="Tamaño de la cancha" required>
-            </div>
-            <div class="buttons">
-                <button type="submit" class="submit-button">Añadir Cancha</button>
-                <button type="button" class="reset-button" (click)="resetCanchaForm()">Limpiar</button>
-            </div>
-        </form>
     </div>
 
     <div class="tables-container">
@@ -100,33 +83,6 @@
                         <td>
                             <button (click)="editCouple(i)" class="submit-button">Editar</button>
                             <button (click)="deleteCouple(i)" class="submit-button delete">Almacenar</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="canchas-box">
-            <h3>Canchas</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nombre de Cancha</th>
-                        <th>Localidad</th>
-                        <th>Tamaño</th>
-                        <th>Disponibilidad</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let cancha of canchas">
-                        <td>{{ cancha.nombre }}</td>
-                        <td>{{ cancha.localidad }}</td>
-                        <td>{{ cancha.tamano }}</td>
-                        <td>{{ cancha.disponibilidad }}</td>
-                        <td>
-                            <button (click)="editCancha(cancha)" class="submit-button">Editar</button>
-                            <button (click)="deleteCancha(cancha)" class="submit-button delete">Almacenar</button>
                         </td>
                     </tr>
                 </tbody>

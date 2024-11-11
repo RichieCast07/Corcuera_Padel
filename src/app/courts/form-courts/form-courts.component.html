@@ -1,0 +1,84 @@
+<nav class="navbar">
+    <div class="navbar-logo">
+        <img src="assets/images/Cocuera_Logo.png" alt="Logo">
+    </div>
+    <div class="navbar-links">
+        <a routerLink="/storages" class="storage-link">
+            <img src="assets/icons/storage.png" alt="Storage Icon" class="nav-icon">
+        </a>
+        <a routerLink="/table-formation" class="table-formation-link">
+            <img src="assets/icons/gameformation.png" alt="Table-Formation Icon" class="nav-icon">
+        </a>
+        <a routerLink="/courts">
+            <img src="assets/icons/courts.png" alt="Courts Icon" class="nav-icon">
+        </a>
+        <a routerLink="/couples" class="couples-link">
+            <img src="assets/icons/couples.png" alt="Couples Icon" class="nav-icon">
+        </a>
+        <div class="dropdown">
+            <a routerLink="/login" class="login-link">
+                <img src="assets/icons/user.png" alt="User Icon" class="nav-icon">
+            </a>
+            <div class="dropdown-content">
+                <a routerLink="/logout">Cerrar Sesión</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="courts-container">
+    <header class="courts-header">
+        <h1>Gestión de Canchas</h1>
+        <div class="icons">
+            <img src="assets/images/Raqueta_roja.png" alt="Icon 1" class="icon1">
+            <img src="assets/images/Raqueta_celesta.png" alt="Icon 2" class="icon2">
+        </div>
+    </header>
+
+    <form class="courts-form" id="courtForm" (ngSubmit)="addCourt()">
+        <h3>Añadir Cancha</h3>
+        <div class="form-group">
+            <label for="nombre-court">Nombre de Cancha</label>
+            <input type="text" id="nombre-court" [(ngModel)]="newCourt.nombre" name="nombreCourt" placeholder="Nombre de la cancha" required>
+        </div>
+        <div class="form-group">
+            <label for="localidad">Localidad</label>
+            <input type="text" id="localidad" [(ngModel)]="newCourt.localidad" name="localidad" placeholder="Localidad de la cancha" required>
+        </div>
+        <div class="form-group">
+            <label for="tamano-court">Tamaño de la Cancha</label>
+            <input type="text" id="tamano-court" [(ngModel)]="newCourt.tamano" name="tamanoCourt" placeholder="Tamaño de la cancha" required>
+        </div>
+        <div class="buttons">
+            <button type="submit" class="submit-button">Añadir Cancha</button>
+            <button type="button" class="reset-button" (click)="resetCourtForm()">Limpiar</button>
+        </div>
+    </form>
+
+    <div class="courts-box">
+        <h3>Canchas</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre de Cancha</th>
+                    <th>Localidad</th>
+                    <th>Tamaño</th>
+                    <th>Disponibilidad</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let court of courts">
+                    <td>{{ court.nombre }}</td>
+                    <td>{{ court.localidad }}</td>
+                    <td>{{ court.tamano }}</td>
+                    <td>{{ court.disponibilidad }}</td>
+                    <td>
+                        <button (click)="editCourt(court)" class="submit-button">Editar</button>
+                        <button (click)="deleteCourt(court)" class="submit-button delete">Almacenar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

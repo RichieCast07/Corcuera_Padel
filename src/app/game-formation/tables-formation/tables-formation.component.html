@@ -1,0 +1,56 @@
+<nav class="navbarm">
+    <div class="navbarm-logo">
+        <img src="assets/images/Cocuera_Logo.png" alt="Logo">
+    </div>
+    <div class="navbarm-links">
+        <a routerLink="/storages" class="storage-link">
+            <img src="assets/icons/storage.png" alt="Storage Icon" class="nav-icon">
+        </a>
+        <a routerLink="/table-formation" class="table-formation-link">
+            <img src="assets/icons/gameformation" alt="Table-Formation Icon" class="nav-icon">
+        </a>
+        <a routerLink="/courts">
+            <img src="assets/icons/courts.png" alt="Courts Icon" class="nav-icon">
+        </a>
+        <a routerLink="/couples" class="couples-link">
+            <img src="assets/icons/couples.png" alt="Couples Icon" class="nav-icon">
+        </a>
+        <a routerLink="/login" class="login-link">
+            <img src="assets/icons/user.png" alt="User Icon" class="nav-icon">
+        </a>
+    </div>
+</nav>
+
+<div class="formacion-container">
+    <header class="formacion-header">
+        <h1>Formación de Juegos</h1>
+        <div class="icons">
+            <img src="assets/images/Raqueta_roja.png" alt="Icon 1" class="icon1">
+            <img src="assets/images/Raqueta_celesta.png" alt="Icon 2" class="icon2">
+        </div>
+    </header>
+
+    <div class="parejas-box">
+        <h2>Parejas</h2>
+        <table class="parejas-table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Puntaje</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let pareja of parejas">
+                    <td>{{ pareja.nombre }}</td>
+                    <td>{{ pareja.puntaje }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button (click)="iniciarRuleta()" class="control-button">Iniciar Ruleta</button>
+    <button (click)="cambiarEtapa('grupo')" class="control-button">Grupo</button>
+    <button (click)="cambiarEtapa('semifinal')" class="control-button">Semifinal</button>
+    <button (click)="openModal()" class="control-button">Añadir Puntaje</button>
+    <button (click)="openModalCourts()" class="control-button">Almacenar Pareja</button>
+</div>
